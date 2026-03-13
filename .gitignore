@@ -1,0 +1,6 @@
+# ignore macos file
+.DS_Store
+
+# ignore dataset directory 
+dataset/
+
