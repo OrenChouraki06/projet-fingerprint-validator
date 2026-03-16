@@ -1,1 +1,5 @@
+# venv setup
 .venv/
+
+# python caching
+__pycache__/
