@@ -7,3 +7,6 @@
 
 # notebooks 
 #  sanitized_dataset.ipynb : transfrom the original dataset, convert images to iput shape of pre-trained model and save images in class names subdirectories
+#  transfer_learning_mobilenet.ipynb : transfer leaning from pre-trained model mobilenetbased 
+
+# models : directory for saved trained model
