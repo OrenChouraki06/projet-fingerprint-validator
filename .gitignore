@@ -3,6 +3,3 @@
 
 # ignore dataset directory 
 dataset/
-
-# ignore models directory 
-models/
