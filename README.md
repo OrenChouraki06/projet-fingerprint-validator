@@ -1,15 +1,20 @@
 # README file for projet-fingerprint-validator 
 
 # dataset/SOCO_Fing : contain original images 
-# dataset/SOCOFing_Training : sanitized (96,96,3) images split by class named subdirectories
-# dataset/SOCOFing_Test : sanitized (96,96,3) images split by class named subdirectories
+# dataset/SOCOFing_Custom/train | validation : sanitized (96,96,3) images split by class name
 
 # deliverables : prezs and docs for certification
 
 # notebooks 
-#  construct_datasets.ipynb : transform the original dataset, convert images to iput shape of pre-trained model and save images in class names subdirectories
-#                             build SOCOFing_Training as set of original Real and Altered-Easy images
-#                             build SOCOFing_Test as set of original Real images
-#  transfer_learning_mobilenet.ipynb : transfer leaning from pre-trained model mobilenetbased 
+#  end2end_fingerprint_classification.ipynb : end 2 end notebook for comprehensive model training
+#  this includes : train / validation / test datasets exploration, split and prep for training
+#                  fingrprint model creation : MobileNetV2 + hidden dense layers + classification
+#                  transfer learning and fine tuning
+#                  model evaluation
 
 # models : directory for saved trained models
+
+# app : fastAPI based application for web deployment
+#       to run : fastapi dev app/main.py
+
+# frontend : Streamlit front-end
