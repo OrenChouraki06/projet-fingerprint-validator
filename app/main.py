@@ -84,7 +84,11 @@ async def predict_fingerprint(file: UploadFile = File(...)):
         prediction = predict_fingerprint_model(fingerprint_model, 
                                                file.filename,
                                                fingerprint_image_bytes)
-        return prediction
     except Exception as e:
         raise HTTPException(status_code=400, 
                             detail=f"⚠️ Unable to predict fingerprint: {str(e)}")
+    
+    debug_log_file.write(f"✅ FastAPI application returned prediction: {prediction}.\n")
+    debug_log_file.flush()
+    
+    return prediction

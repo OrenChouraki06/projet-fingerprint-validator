@@ -98,26 +98,19 @@ def predict_fingerprint_model(model: tf.keras.Model,
         # Prediction
         predictions = model.predict(img_array, verbose=constants.PREDICTION_VERBOSE)
 
-        predicted_class_idx = np.argmax(predictions[0])
-        confidence = predictions[0][predicted_class_idx]
-
-        # Report top-2 predictions
-        topk_idx = np.argsort(predictions[0])[-2:][::-1]
-
     except Exception as e:
         print(f"⚠️ Unable to predict fingerprint image '{fingerprint_image_filename}': {str(e)}.\n")
         raise e
 
-    probabilities = {constants.class_names[i]: float(predictions[0][i]) for i in range(len(constants.class_names))}
-    top2_probabilities = {constants.class_names[i]: float(predictions[0][i]) for i in topk_idx}
+    predicted_class_idx = np.argmax(predictions[0])
+    confidence = float(f"{predictions[0][predicted_class_idx]*100:.2f}")
+    probabilities = {constants.class_names[i]: float(f"{predictions[0][i]*100:.2f}") for i in range(len(constants.class_names))}
+
     response = {
         'fingerprint': constants.class_names[predicted_class_idx],
         'confidence': confidence,
-        'probabilities': probabilities,
-        'top2_probabilities': top2_probabilities
+        'probabilities': probabilities
     }
-
-    print(f"✅ Fingerprint image '{fingerprint_image_filename}' has been predicted successfully.\n")
-    print(f"    Prediction response: {response}\n")
+    print(f"✅ Fingerprint image '{fingerprint_image_filename}' has been predicted successfully: {response}.\n")
 
     return response

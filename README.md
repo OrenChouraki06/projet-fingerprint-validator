@@ -17,4 +17,5 @@
 # app : fastAPI based application for web deployment
 #       to run : fastapi dev app/main.py
 
-# frontend : Streamlit front-end
+# frontend : Streamlit interface
+#       to run : uv run streamlit run frontend/streamlit.py --server.port=5801 --server.address="0.0.0.0"

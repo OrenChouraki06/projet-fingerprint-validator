@@ -5,7 +5,6 @@
         fingerprint: string representing the predicted class
         confidence: float representing the confidence level of the prediction 
         probabilities: dictionary containing the probabilities for each class
-        top2_probabilities: dictionary containing the probabilities for the top 2 predicted classes
 '''
 # ---------------------------------------------------------------------------------------------
 # import librairies
@@ -19,4 +18,3 @@ class FingerprintPrediction(BaseModel):
     fingerprint: str
     confidence: float
     probabilities: dict
-    top2_probabilities: dict
