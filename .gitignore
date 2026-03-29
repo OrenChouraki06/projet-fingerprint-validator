@@ -1,5 +1,14 @@
 # ignore macos file
 .DS_Store
 
+# ignore python cache
+__pycache__/
+
+# ignore python env
+.venv/
+
 # ignore dataset directory 
 dataset/
+
+ignore models directory
+models/
