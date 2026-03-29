@@ -3,6 +3,7 @@
 
 # ignore python cache
 __pycache__/
+app/__pycache__/
 
 # ignore python env
 .venv/
