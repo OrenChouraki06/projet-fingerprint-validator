@@ -19,6 +19,7 @@ import requests
 
 # url of the FastAPI backend for the fingerprint validator application
 FINGERPRINT_FASTAPI_URL = "http://localhost:8000"
+FINGERPRINT_CONFIDENCE_THRESHOLD = 75.0
 
 # ---------------------------------------------------------------------------------------------
 # Streamlit application configuration
@@ -54,7 +55,15 @@ if st.button("Predict FingerPrint",
                 # Send request to FastAPI backend
                 response = requests.post(f"{FINGERPRINT_FASTAPI_URL}/predict_fingerprint", files=files)
 
-                st.success(f"✅ Fingerprint prediction has been successfully completed!")
+                confidence = response.json().get("confidence", 0)
+                if confidence < FINGERPRINT_CONFIDENCE_THRESHOLD:
+                    st.warning(f"⚠️ The confidence level of the prediction is {confidence:.2f}%, which is below the threshold of {FINGERPRINT_CONFIDENCE_THRESHOLD}%.")
+                    st.warning("The prediction may not be reliable.")
+                else:
+                    st.success(f"✅ The confidence level of the prediction is {confidence:.2f}%, which is above the threshold of {FINGERPRINT_CONFIDENCE_THRESHOLD}%.")
+                    st.success("The prediction is likely to be reliable.")
+
+                st.write("Predictions response from FastAPI backend:")
                 st.write(response.json())
 
             except Exception as e:
