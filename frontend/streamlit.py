@@ -35,13 +35,13 @@ st.title("FingerPrint Validator")
 st.write("Upload an image to generate its fingerprint class prediction.")  
 
 # definition of tabs for the fingerprint application
-tabs = st.tabs(["Image Prediction", "About"])
+tabs = st.tabs(["About", "Image Prediction"])
 
 # ---------------------------------------------------------------------------------------------
 # Tab for the fingerprint image analysis
 # ---------------------------------------------------------------------------------------------
 
-with tabs[0]:
+with tabs[1]:
     st.header("Image Prediction")
    
     uploaded_file = st.file_uploader("Choose an image...", 
@@ -97,7 +97,7 @@ with tabs[0]:
 # Tab for application information and instructions
 # ---------------------------------------------------------------------------------------------
 
-with tabs[1]:
+with tabs[0]:
     st.header("About the FingerPrint Validator Application")
 
     st.write("""
