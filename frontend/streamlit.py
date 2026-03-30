@@ -35,8 +35,8 @@ st.title("FingerPrint Validator")
 st.write("Upload an image to generate its fingerprint class prediction.")  
 
 uploaded_file = st.file_uploader("Choose an image...", 
-                                 type=["jpg", "jpeg"],
-                                 help="Click to upload an image file (JPEG format) for fingerprint class prediction. Supported formats: .jpg, .jpeg.")
+                                 type=["bmp", "jpg", "jpeg"],
+                                 help="Click to upload an image file (BMP, JPEG format) for fingerprint class prediction.")
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
@@ -72,12 +72,12 @@ if st.button("Predict FingerPrint Class",
                 confidence = response.json().get("confidence", 0)
                 if confidence < confidence_threshold*100:
                     st.warning(f"⚠️ The confidence level of the prediction is {confidence:.2f}%, which is below the threshold of {confidence_threshold*100:.2f}%.")
-                    st.warning("The prediction may not be reliable.")
+                    st.warning("The fingerprint image may not be actionable.")
                 else:
                     st.success(f"✅ The confidence level of the prediction is {confidence:.2f}%, which is above the threshold of {confidence_threshold*100:.2f}%.")
-                    st.success("The prediction is likely to be reliable.")
+                    st.success("The fingerprint image is likely to be actionable.")
 
-                st.write("Prediction for all classes:")
+                st.write("Prediction for all fingerprint classes:")
                 st.write(response.json())
 
             except Exception as e:

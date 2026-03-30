@@ -28,25 +28,25 @@ from model import load_fingerprint_model, predict_fingerprint_model
 # ---------------------------------------------------------------------------------------------
 
 try:
-    debug_log_file = open(constants.DEBUG_LOG_FILE, "w")
-    debug_log_file.write(f"✅ Debug log file {debug_log_file.name} has been created.\n")
+    debug_log_path = open(constants.DEBUG_LOG_PATH, "w")
+    debug_log_path.write(f"✅ Debug log file {debug_log_path.name} has been created.\n")
 except Exception as e:
     print(f"⚠️ Unable to create debug log file: {str(e)}.\n")
     exit(100)
 
 # redirect stdout and stderr to the debug log file
-sys.stdout = debug_log_file
-sys.stderr = debug_log_file
-debug_log_file.write("✅ Standard output and error have been redirected to the debug log file.\n")
+sys.stdout = debug_log_path
+sys.stderr = debug_log_path
+print("✅ Standard output and error have been redirected to the debug log file.\n")
 
 # ---------------------------------------------------------------------------------------------
 # instance creation of FastAPI application
 # ---------------------------------------------------------------------------------------------
 try:
     app = FastAPI()
-    debug_log_file.write(f"✅ FastAPI application instance has been created.\n")
+    print(f"✅ FastAPI application instance has been created.\n")
 except Exception as e:
-    debug_log_file.write(f"⚠️ Unable to create FastAPI application instance: {str(e)}.\n")
+    print(f"⚠️ Unable to create FastAPI application instance: {str(e)}.\n")
     raise HTTPException(status_code=200, 
                         detail=f"⚠️ Unable to create FastAPI application instance: {str(e)}")  
 
@@ -56,6 +56,7 @@ except Exception as e:
 try:
     fingerprint_model = load_fingerprint_model(constants.FINGERPRINT_MODEL_PATH)
 except Exception as e:
+    print(f"⚠️ Unable to load fingerprint model '{constants.FINGERPRINT_MODEL_PATH}': {str(e)}.\n")
     raise HTTPException(status_code=300, 
                         detail=f"⚠️ Unable to load fingerprint model '{constants.FINGERPRINT_MODEL_PATH}': {str(e)}")
 
@@ -88,7 +89,5 @@ async def predict_fingerprint(file: UploadFile = File(...)):
         raise HTTPException(status_code=400, 
                             detail=f"⚠️ Unable to predict fingerprint: {str(e)}")
     
-    debug_log_file.write(f"✅ FastAPI application returned prediction: {prediction}.\n")
-    debug_log_file.flush()
-    
+    print(f"✅ FastAPI application returned prediction: {prediction}.\n")
     return prediction

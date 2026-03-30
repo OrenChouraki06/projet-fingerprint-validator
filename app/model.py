@@ -65,6 +65,13 @@ def preprocess_fingerprint_bytes(fingerprint_image_filename: str,
         img = img.convert('L')  # Convert to grayscale
         img = img.convert('RGB')  # Convert back to RGB
 
+        # Make sure to have a jpeg image and not a bmp image which is not supported by MobileNetV2
+        # Save the preprocessed image to a temporary file and reload it to ensure it's in the correct format
+        preprocessed_filename= "preprocessed_" + fingerprint_image_filename.rsplit('.', 1)[0] + ".jpeg"
+        preprocessed_image_path = constants.DEBUG_TMP_DIR + preprocessed_filename
+        img.save(preprocessed_image_path, format="JPEG")
+        img = Image.open(preprocessed_image_path)
+
         # convert the image to a numpy array and preprocess it for MobileNetV2
         img_array = np.array(img)
         img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
@@ -74,7 +81,7 @@ def preprocess_fingerprint_bytes(fingerprint_image_filename: str,
         print(f"⚠️ Unable to preprocess fingerprint image '{fingerprint_image_filename}': {str(e)}.\n")
         raise e
 
-    print(f"✅ Fingerprint image '{fingerprint_image_filename}' has been preprocessed successfully.\n")
+    print(f"✅ Fingerprint image '{fingerprint_image_filename}' has been preprocessed successfully and saved to {preprocessed_image_path}.\n")
     return img_array
 
 # ---------------------------------------------------------------------------------------------
